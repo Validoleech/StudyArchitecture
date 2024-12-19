@@ -1,3 +1,4 @@
+from app.models import AuthModel
 from sqlalchemy.orm import Session
 from app.models import User
 from passlib.hash import bcrypt
@@ -13,10 +14,3 @@ def generate_score(good=False):
     if good:
         return random.uniform(0.5, 1.0)
     return random.uniform(0.0, 0.5)
-
-def authenticate_user(db: Session, login: str, password: str):
-    """Аутентификация пользователя по логину и паролю."""
-    user = db.query(User).filter(User.login == login).first()
-    if user and bcrypt.verify(password, user.password):
-        return user
-    return None

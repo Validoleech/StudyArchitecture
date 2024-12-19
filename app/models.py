@@ -13,3 +13,6 @@ class LoginModel(BaseModel):
 
 class AuthModel(LoginModel):
     password: str
+
+class ScoreModel(LoginModel):
+    score: float
