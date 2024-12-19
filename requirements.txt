@@ -1,0 +1,15 @@
+typing-extensions
+sniffio
+python-dotenv
+idna
+greenlet
+annotated-types
+sqlalchemy
+anyio
+starlette
+fastapi
+passlib
+bcrypt
+psycopg
+psycopg2
+uvicorn
