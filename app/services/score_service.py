@@ -21,21 +21,34 @@ class ScoreService:
             dict: Словарь, содержащий логин пользователя, пароль и оценку.
         """
         user = get_or_create_user(self.db, auth.login)
-        return {"login": user.login, "password": user.password, "score": user.score}
+        print(user)
+        if user.score < THRESHOLD_SCORE:
+            user = self.reset_score(auth)
+            return {
+                "login": user.login,
+                "message": "Score reset due to low value.",
+                "score": user.score,
+                "valid": user.score > THRESHOLD_SCORE
+            }
+        return {
+            "login": user.login,
+            "score": user.score,
+            "valid": user.score > THRESHOLD_SCORE
+        }
     
-    def reset_score(self, auth: LoginModel, good: bool = False) -> dict:
+    def reset_score(self, auth: LoginModel, good: bool = False):
         """
         Сбрасывает счет пользователя.
         Args:
             auth (LoginModel): Модель аутентификации пользователя.
             good (bool, optional): Флаг генерации от 0.5 до 1.0. По умолчанию: False
         Returns:
-            dict: Словарь с логином пользователя, новым счетом и сообщением о сбросе счета.
+            LoginModel: Объект пользователя с обновленным счетом.
         """
         user = get_or_create_user(self.db, auth.login)
         user.score = generate_score(good)
         self.db.commit()
-        return {"login": user.login, "score": user.score, "message": "Score reset."}
+        return user
     
     def is_admin(self, auth: LoginModel) -> bool:
         """Проверяет, является ли пользователь администратором.
@@ -47,3 +60,16 @@ class ScoreService:
             bool: True, если является.
         """
         return auth.login == "auth_admin"
+    
+    def get_password(self, auth: LoginModel) -> str:
+        """
+        Возвращает пароль пользователя.
+
+        Args:
+            auth (LoginModel): Модель логина, содержащая учетные данные пользователя.
+
+        Returns:
+            dict: Пароль пользователя.
+        """
+        user = get_or_create_user(self.db, auth.login)
+        return {"password": user.password}

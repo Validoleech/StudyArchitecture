@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from app.models import User
 from app.utils import generate_score, generate_password
 
-def get_or_create_user(db: Session, login: str):
+def get_or_create_user(db: Session, login: str) -> User:
     """
     Получает существующего пользователя или создаёт нового.
     Args:

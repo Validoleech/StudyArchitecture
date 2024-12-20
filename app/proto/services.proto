@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package app;
+
+service ScoreService {
+    rpc GetScore (LoginRequest) returns (ScoreResponse);
+    rpc GetPassword (LoginRequest) returns (PasswordResponse);
+    rpc GetGud (LoginRequest) returns (ScoreResponse);
+}
+
+service AuthService {
+  rpc Authorize (AuthRequest) returns (AuthResponse);
+}
+
+message LoginRequest {
+  string login = 1;
+}
+
+message ResetScoreRequest {
+  string login = 1;
+  bool good = 2;
+}
+
+message AuthRequest {
+  string login = 1;
+  string password = 2;
+}
+
+message UserResponse {
+  string login = 1;
+  string password = 2;
+  float score = 3;
+}
+
+message AuthResponse {
+  bool authorized = 1;
+  string message = 2;
+}
+
+message ScoreResponse {
+  string login = 1;
+  string message = 2;
+  float score = 3;
+  bool valid = 4;
+}
+
+message PasswordResponse {
+  string login = 1;
+  string password = 2;
+}

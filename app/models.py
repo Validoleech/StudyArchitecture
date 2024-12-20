@@ -16,3 +16,7 @@ class AuthModel(LoginModel):
 
 class ScoreModel(LoginModel):
     score: float
+
+class AuthResponseModel(BaseModel):
+    authorized: bool
+    message: str = None

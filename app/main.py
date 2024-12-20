@@ -3,6 +3,8 @@ from app.database import engine
 from app.models import Base
 from app.routers import score_router, auth_router, composition_router
 from dotenv import load_dotenv
+from app.proto.grpc_server import serve
+import logging
 
 app = FastAPI()
 
@@ -17,4 +19,8 @@ app.include_router(composition_router, prefix="/api", tags=["Composition Service
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    import threading
+
+    grpc_thread = threading.Thread(target=serve)
+    grpc_thread.start()
+    uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)
