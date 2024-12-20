@@ -10,5 +10,6 @@ router = APIRouter()
 def authenticate(auth: AuthModel, db: Session = Depends(get_db)):
     result = AuthService.authorize(db, auth)
     if not result["authorized"]:
-        raise HTTPException(status_code=401, detail="Invalid login or password")
+        return {"authorized": False}
+        #raise HTTPException(status_code=401, detail="Invalid login or password")
     return result
