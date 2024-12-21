@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package auth;
+
+service AuthService {
+    rpc Authorize (AuthorizeRequest) returns (AuthorizeResponse);
+    rpc CreateUser (CreateUserRequest) returns (UserResponse);
+    rpc ReadUser (ReadUserRequest) returns (UserResponse);
+    rpc DeleteUser (DeleteUserRequest) returns (Empty);
+    rpc ChangePassword (ChangePasswordRequest) returns (UserResponse);
+}
+
+message AuthorizeRequest {
+    string login = 1;
+    string password = 2;
+}
+
+message AuthorizeResponse {
+    bool authorized = 1;
+}
+
+message CreateUserRequest {
+    string login = 1;
+    string password = 2;
+    string score = 3;
+}
+
+message ReadUserRequest {
+    string login = 1;
+}
+
+message DeleteUserRequest {
+    string login = 1;
+}
+
+message ChangePasswordRequest {
+    string login = 1;
+    string old_password = 2;
+    string new_password = 3;
+}
+
+message UpdateUserScoreRequest {
+    string login = 1;
+    float score = 2;
+}
+
+message UserResponse {
+    string login = 1;
+    string password = 2;
+    float score = 3;
+}
+
+message Empty {}

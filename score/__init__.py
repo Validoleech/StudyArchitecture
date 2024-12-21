@@ -1,1 +1,1 @@
-from .score import router as score_router
+from score import score_service as score_service

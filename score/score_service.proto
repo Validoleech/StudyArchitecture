@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package score;
+
+service ScoreService {
+    rpc GetScore (GetScoreRequest) returns (ScoreResponse);
+    rpc RegenerateScore (RegenerateScoreRequest) returns (ScoreResponse);
+    rpc EvaluateScore (EvaluateScoreRequest) returns (EvaluateScoreResponse);
+    rpc GenerateScore (GenerateScoreRequest) returns (ScoreResponse);
+}
+
+message GetScoreRequest {
+    string login = 1;
+}
+
+message ScoreResponse {
+    float score = 1;
+}
+
+message GenerateScoreRequest {
+    bool good = 1;
+}
+
+message RegenerateScoreRequest {
+    string login = 1;
+    bool good = 2;
+}
+
+message EvaluateScoreRequest {
+    string login = 1;
+}
+
+message EvaluateScoreResponse {
+    bool valid = 1;
+}

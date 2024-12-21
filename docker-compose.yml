@@ -1,22 +1,47 @@
-version: '3.8'
-
 services:
-  app:
-    build: .
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: auth_service
+      POSTGRES_USER: auth_admin
+      POSTGRES_PASSWORD: auth_password
+    volumes:
+      - ./database/db.sql:/docker-entrypoint-initdb.d/db.sql
+    ports:
+      - "5432:5432"
+
+  auth:
+    build:
+      context: ./auth
+    ports:
+      - "50051:50051"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://auth_admin:auth_password@db:5432/auth_service
+
+  score:
+    build:
+      context: ./score
+    ports:
+      - "50052:50052"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://auth_admin:auth_password@db:5432/auth_service
+      - THRESHOLD_SCORE=0.5
+
+  composition:
+    build:
+      context: ./composition
     ports:
       - "8000:8000"
     depends_on:
-      - db
-    volumes:
-      - .:/app
-
-  db:
-    image: postgres:latest
+      - auth
+      - score
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydatabase
+      - AUTH_SERVICE_URL=grpc://auth:50051
+      - SCORE_SERVICE_URL=grpc://score:50052
     volumes:
-      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
-    ports:
-      - "5432:5432"
+      - ./auth:/app/auth
+      - ./score:/app/score

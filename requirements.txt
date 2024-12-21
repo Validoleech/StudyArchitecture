@@ -10,6 +10,7 @@ starlette
 fastapi
 passlib
 bcrypt
-psycopg
 psycopg2
 uvicorn
+grpcio
+grpcio-tools
