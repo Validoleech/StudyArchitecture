@@ -2,14 +2,13 @@ syntax = "proto3";
 
 package app;
 
-service ScoreService {
-    rpc GetScore (LoginRequest) returns (ScoreResponse);
-    rpc GetPassword (LoginRequest) returns (PasswordResponse);
-    rpc GetGud (LoginRequest) returns (ScoreResponse);
-}
-
 service AuthService {
   rpc Authorize (AuthRequest) returns (AuthResponse);
+}
+
+message AuthResponse {
+  bool authorized = 1;
+  string message = 2;
 }
 
 message LoginRequest {
@@ -30,11 +29,6 @@ message UserResponse {
   string login = 1;
   string password = 2;
   float score = 3;
-}
-
-message AuthResponse {
-  bool authorized = 1;
-  string message = 2;
 }
 
 message ScoreResponse {
