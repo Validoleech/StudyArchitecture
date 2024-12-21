@@ -3,11 +3,14 @@ sys.path.append('/app/score')
 sys.path.append('/app/auth')
 
 import grpc
+import logging
 from fastapi import FastAPI, HTTPException
 import auth_service_pb2 as auth_pb2
 import auth_service_pb2_grpc as auth_pb2_grpc
 import score_service_pb2 as score_pb2
 import score_service_pb2_grpc as score_pb2_grpc
+
+logger = logging.getLogger("fastapi")
 
 app = FastAPI()
 
@@ -18,12 +21,15 @@ class CompositionService:
         self.score_channel = grpc.insecure_channel('localhost:50052')
         self.score_stub = score_pb2_grpc.ScoreServiceStub(self.score_channel)
 
-    def create_user(self, login: str, password: str = None, good: bool = False):
+    def create_user(self, login: str):
         try:
-            score_response = self.score_stub.GenerateScore(score_pb2.GenerateScoreRequest(good=good))
-            response = self.auth_stub.CreateUser(auth_pb2.CreateUserRequest(login=login, password=password, score=score_response))
+            logging.info(f"Creating user with login: {login}")
+            response = self.auth_stub.CreateUser(auth_pb2.CreateUserRequest(login=login))
+            logging.info(f"User created with response: {response}")
+            return response
             return response
         except grpc.RpcError as e:
+            logging.error(f"Error in create_user: {e}")
             raise HTTPException(status_code=e.code().value[0], detail=e.details())
 
     def delete_user(self, login: str):
@@ -56,8 +62,8 @@ class CompositionService:
 composition_service = CompositionService()
 
 @app.post("/users/")
-def create_user(login: str, good: bool = False):
-    return composition_service.create_user(login, good)
+def create_user(login: str):
+    return composition_service.create_user(login)
 
 @app.delete("/users/{login}/delete")
 def delete_user(login: str):

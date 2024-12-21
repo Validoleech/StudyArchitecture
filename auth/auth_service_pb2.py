@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61uth_service.proto\x12\x04\x61uth\"3\n\x10\x41uthorizeRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\'\n\x11\x41uthorizeResponse\x12\x12\n\nauthorized\x18\x01 \x01(\x08\"C\n\x11\x43reateUserRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\t\" \n\x0fReadUserRequest\x12\r\n\x05login\x18\x01 \x01(\t\"\"\n\x11\x44\x65leteUserRequest\x12\r\n\x05login\x18\x01 \x01(\t\"R\n\x15\x43hangePasswordRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\x14\n\x0cold_password\x18\x02 \x01(\t\x12\x14\n\x0cnew_password\x18\x03 \x01(\t\"6\n\x16UpdateUserScoreRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x02\">\n\x0cUserResponse\x12\r\n\x05login\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x02\"\x07\n\x05\x45mpty2\xb4\x02\n\x0b\x41uthService\x12<\n\tAuthorize\x12\x16.auth.AuthorizeRequest\x1a\x17.auth.AuthorizeResponse\x12\x39\n\nCreateUser\x12\x17.auth.CreateUserRequest\x1a\x12.auth.UserResponse\x12\x35\n\x08ReadUser\x12\x15.auth.ReadUserRequest\x1a\x12.auth.UserResponse\x12\x32\n\nDeleteUser\x12\x17.auth.DeleteUserRequest\x1a\x0b.auth.Empty\x12\x41\n\x0e\x43hangePassword\x12\x1b.auth.ChangePasswordRequest\x1a\x12.auth.UserResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61uth_service.proto\x12\x04\x61uth\"3\n\x10\x41uthorizeRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\'\n\x11\x41uthorizeResponse\x12\x12\n\nauthorized\x18\x01 \x01(\x08\"\"\n\x11\x43reateUserRequest\x12\r\n\x05login\x18\x01 \x01(\t\" \n\x0fReadUserRequest\x12\r\n\x05login\x18\x01 \x01(\t\"\"\n\x11\x44\x65leteUserRequest\x12\r\n\x05login\x18\x01 \x01(\t\"R\n\x15\x43hangePasswordRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\x14\n\x0cold_password\x18\x02 \x01(\t\x12\x14\n\x0cnew_password\x18\x03 \x01(\t\"6\n\x16UpdateUserScoreRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x02\">\n\x0cUserResponse\x12\r\n\x05login\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x02\"\x07\n\x05\x45mpty2\xb4\x02\n\x0b\x41uthService\x12<\n\tAuthorize\x12\x16.auth.AuthorizeRequest\x1a\x17.auth.AuthorizeResponse\x12\x39\n\nCreateUser\x12\x17.auth.CreateUserRequest\x1a\x12.auth.UserResponse\x12\x35\n\x08ReadUser\x12\x15.auth.ReadUserRequest\x1a\x12.auth.UserResponse\x12\x32\n\nDeleteUser\x12\x17.auth.DeleteUserRequest\x1a\x0b.auth.Empty\x12\x41\n\x0e\x43hangePassword\x12\x1b.auth.ChangePasswordRequest\x1a\x12.auth.UserResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,19 +36,19 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_AUTHORIZERESPONSE']._serialized_start=81
   _globals['_AUTHORIZERESPONSE']._serialized_end=120
   _globals['_CREATEUSERREQUEST']._serialized_start=122
-  _globals['_CREATEUSERREQUEST']._serialized_end=189
-  _globals['_READUSERREQUEST']._serialized_start=191
-  _globals['_READUSERREQUEST']._serialized_end=223
-  _globals['_DELETEUSERREQUEST']._serialized_start=225
-  _globals['_DELETEUSERREQUEST']._serialized_end=259
-  _globals['_CHANGEPASSWORDREQUEST']._serialized_start=261
-  _globals['_CHANGEPASSWORDREQUEST']._serialized_end=343
-  _globals['_UPDATEUSERSCOREREQUEST']._serialized_start=345
-  _globals['_UPDATEUSERSCOREREQUEST']._serialized_end=399
-  _globals['_USERRESPONSE']._serialized_start=401
-  _globals['_USERRESPONSE']._serialized_end=463
-  _globals['_EMPTY']._serialized_start=465
-  _globals['_EMPTY']._serialized_end=472
-  _globals['_AUTHSERVICE']._serialized_start=475
-  _globals['_AUTHSERVICE']._serialized_end=783
+  _globals['_CREATEUSERREQUEST']._serialized_end=156
+  _globals['_READUSERREQUEST']._serialized_start=158
+  _globals['_READUSERREQUEST']._serialized_end=190
+  _globals['_DELETEUSERREQUEST']._serialized_start=192
+  _globals['_DELETEUSERREQUEST']._serialized_end=226
+  _globals['_CHANGEPASSWORDREQUEST']._serialized_start=228
+  _globals['_CHANGEPASSWORDREQUEST']._serialized_end=310
+  _globals['_UPDATEUSERSCOREREQUEST']._serialized_start=312
+  _globals['_UPDATEUSERSCOREREQUEST']._serialized_end=366
+  _globals['_USERRESPONSE']._serialized_start=368
+  _globals['_USERRESPONSE']._serialized_end=430
+  _globals['_EMPTY']._serialized_start=432
+  _globals['_EMPTY']._serialized_end=439
+  _globals['_AUTHSERVICE']._serialized_start=442
+  _globals['_AUTHSERVICE']._serialized_end=750
 # @@protoc_insertion_point(module_scope)

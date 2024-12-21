@@ -1,5 +1,6 @@
 from concurrent import futures
 import grpc
+import logging
 from crud import create_user, read_user, delete_user, update_password
 from utils import generate_password
 from models import SessionLocal
@@ -18,13 +19,21 @@ class AuthServiceServicer(auth_service_pb2_grpc.AuthServiceServicer):
 
     def CreateUser(self, request, context):
         try:
-            password = request.password if request.password else generate_password()
-            user = create_user(self.db, request.login, password, request.score)
-            return auth_service_pb2.UserResponse(login=user.login, password=user.password, score=request.score)
+            logging.info(f"Received CreateUser request with login: {request.login}")
+
+            password = generate_password()
+            score_response = self.score_stub.GenerateScore(GenerateScoreRequest())
+            score = score_response.score
+
+            user = create_user(self.db, request.login, password, score)
+            logging.info(f"User created with login: {user.login}, password: {user.password}, score: {user.score}")
+            return auth_service_pb2.UserResponse(login=user.login, password=user.password, score=user.score)
         except Exception as e:
+            logging.error(f"Error creating user: {e}")
             context.set_details(str(e))
             context.set_code(grpc.StatusCode.INTERNAL)
             return auth_service_pb2.UserResponse()
+
 
     def ReadUser(self, request, context):
         user = read_user(self.db, request.login)

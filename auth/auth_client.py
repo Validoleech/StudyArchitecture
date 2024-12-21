@@ -1,4 +1,5 @@
 import grpc
+import logging
 import auth_service_pb2
 import auth_service_pb2_grpc
 
@@ -12,7 +13,9 @@ class AuthClient:
         return response.authorized
 
     def create_user(self, login: str, password: str, score: float):
+        logging.info(f"Creating user with login: {login}, password: {password}, score: {score}")
         response = self.stub.CreateUser(auth_service_pb2.CreateUserRequest(login=login, password=password, score=score))
+        logging.info(f"User created with response: {response}")
         return response
 
     def read_user(self, login: str):
